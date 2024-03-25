@@ -1,0 +1,74 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.GEXBOT {
+    color: rgb(222, 66, 91);
+}
+
+.GEXBOT:hover {
+    color: rgb(222, 66, 91);
+}
+
+.update {
+    background-color: rgb(255, 255, 255);
+    color: black;
+    font-weight: bold;
+}
+
+.light-grey {
+    background-color: rgb(120, 120, 120);
+}
+
+.gree_col {
+    color: rgb(102, 212, 102);
+}
+
+.spx-left {
+    display: block;
+    float: left;
+    width: 74%;
+    margin: auto;
+    padding-right: 80px;
+}
+
+.spx-right {
+    display: block;
+    float: right;
+    width: 20%;
+    margin: auto;
+}
+
+#chart-container {
+    position: relative;
+    height: 110vh;
+    width: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 768px) {
+    .spx-left {
+        display: block;
+        float: none;
+        width: 100%;
+        margin: auto;
+        padding-right: 140px;
+    }
+
+    .spx-right {
+        float: none;
+        width: 100%;
+        margin: auto;
+    }
+
+    #chart-container {
+        position: relative;
+        height: 110vh;
+        overflow: hidden;
+        margin: auto;
+        padding-right: 90px;
+    }
+
+}

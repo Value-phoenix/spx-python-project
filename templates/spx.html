@@ -1,0 +1,264 @@
+{% load static %}
+{% block styles %}
+
+<!-- Latest compiled and minified CSS -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css %'}"/> -->
+<link rel="stylesheet" type="text/css" href="{% static 'spx_styles.css' %}" />
+<style>
+  .update-container {
+    margin-bottom: 20px;
+  }
+  .update {
+    background-color: #292929;
+    color: #ffffff;
+    margin-bottom: 10px;
+    padding: 5px;
+  }
+  .content-row {
+    margin-bottom: 15px;
+  }
+  .data-item {
+    margin-bottom: 5px;
+  }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<div class="w-100" style="display: flex; width: 100%;box-sizing: border-box;">
+  <div class="row w-100" style="display: flex; width: 100%;box-sizing: border-box;">
+    <div style="width: inherit; background-color: #292929;" id="chart-container">
+      <!-- <canvas id="myChart" style="background-color: #292929;"></canvas> -->
+      <!-- <canvas id="myChart1" style="background-color: #292929;"></canvas> -->
+    </div>
+  </div>
+<div class="row w-100" style="background-color: black;">
+  <div class="spx-right" style="background-color: black; width: 100%;">
+    <div class="d-flex flex-column update-container">
+      <div class="content-row" style="color: #ffffff;">
+        <fieldset class="custom-fieldset">
+          <legend>ticker</legend>
+          <!-- <label class="fs-4 update">ticker</label> -->
+          <select class="custom-form-control" onchange="Sendparams()" id="custom-option-sel">
+            <option class="custom-form-option" value="spx">SPX</option>
+            <option class="custom-form-option" value="spy">SPY</option>
+            <option class="custom-form-option" value="qqq">QQQ</option>
+            <option class="custom-form-option" value="tqqq">TQQQ</option>
+            <option class="custom-form-option" value="aapl">AAPL</option>
+            <option class="custom-form-option" value="tsla">TSLA</option>
+            <option class="custom-form-option" value="msft">MSFT</option>
+            <option class="custom-form-option" value="amzn">AMZN</option>
+            <option class="custom-form-option" value="nvda">NVDA</option>
+            <option class="custom-form-option" value="meta">META</option>
+            <option class="custom-form-option" value="vix">VIX</option>
+            <option class="custom-form-option" value="goog">GOOG</option>
+            <option class="custom-form-option" value="iwm">IWM</option>
+            <option class="custom-form-option" value="xlf">XLF</option>
+          </select>
+        </fieldset>
+      </div>
+      <p class="fs-6 update">&nbsp;&nbsp;Update</p>
+      <div class="content-row" style=" color: #ffffff;">
+        <div class="data-item">
+          <span class="fs-6 text-start">&nbspDate:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span>
+          <span class="fs-6 text-end" id="date-p">05/03/2024</span>
+        </div>
+        <br>
+        <div class="data-item">
+          <span class="fs-6 text-start">&nbspTime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span class="fs-6 text-end" id="time-p">11:02:46 AM</span>
+        </div>
+        <br>
+        <div class="data-item">
+          <span class="fs-6 text-start">&nbspSpot &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span class="fs-6 text-end" id="spot-p">4280.73</span>
+        </div>
+      </div>
+
+      <p class="fs-6 text-dark update">Expiry</p>
+      <p class="fs-6 update">Volume</p>
+      <div class="bg-dark text-dark content-row rounded">
+        <div class="data-item" style="color: rgb(252, 177, 3)">
+          <span class="fs-6 text-start">&nbspZero Gamma:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span>
+          <span class="fs-6 text-end" id="zero-gamma-p">4272.031</span>
+        </div>
+        <br>
+        <div class="data-item" style="color: rgb(3, 255, 53)">
+          <span class="fs-6 text-start">&nbspMajor Positive:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span>
+          <span class="fs-6 text-end" id="major-positive-volume-p">4289.375</span>
+        </div>
+        <br>
+        <div class="data-item" style="color: rgb(61, 138, 68)">
+          <span class="fs-6 text-start">&nbspMajor Negative:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span class="fs-6 text-end" style="color: #59523E;" id="major-negative-volume-p">4260</span>
+        </div>
+        <br>
+        <div class="data-item" style="color: #59523E;">
+          <span class="fs-6 text-start">&nbspNet Gex:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp; </span>
+          <span class="fs-6 text-end gree_col" id="net-gex-volume-p">34.909</span>
+        </div>
+      </div>
+      <p class="fs-6 update">Open Interest</p>
+      <div class="bg-dark text-dark content-row rounded">
+        <div class="data-item" style="color: rgb(232, 121, 249)">
+          <span class="fs-6 text-start">&nbspMajor Positive:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           </span>
+          <span class="fs-6 text-end" id="major-positive-oi-p">4289.375</span>
+        </div>
+        <br>
+        <div class="data-item" style="color: rgb(162, 28, 175)">
+          <span class="fs-6 text-start">&nbspMajor Negative:
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+          </span>
+          <span class="fs-6 text-end" id="major-negative-oi-p">4260</span>
+        </div>
+        <br>
+        <div class="data-item" style="color: #59523E;">
+          <span class="fs-6 text-start">&nbspNet Gex: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp; </span>
+          <span class="fs-6 text-end" id="net-gex-oi-p">34.909</span>
+        </div>
+      </div>
+
+      <p id="update" class="fs-6 update">Max Change Gex</p>
+      <div class="bg-dark text-dark content-row rounded">
+        <div class="data-item" style="color: #ffffff;">
+          <span class="fs-6 text-start">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 m&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span class="fs-6 text-start gree_col" id="max-change-1-a">4285 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span class="fs-6 text-end gree_col" id="max-change-1-b">0.38Bn</span>
+        </div>
+
+        <div class="data-item" style="color: rgb(48, 179, 212)">
+          <span class="fs-6 text-start">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5 m&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+          <span class="fs-6 text-start gree_col" id="max-change-5-a">4265&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span class="fs-6 text-end gree_col" id="max-change-5-b">1.76Bn</span>
+        </div>
+
+        <div class="data-item" style="color: rgb(0, 162, 222)">
+          <span class="fs-6 text-start">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10 m&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+          <span class="fs-6 text-start gree_col" id="max-change-10-a">4290&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span class="fs-6 text-end gree_col" id="max-change-10-b">1.96Bn</span>
+        </div>
+
+        <div class="data-item" style="color: rgb(0, 108, 192)">
+          <span class="fs-6 text-start">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15 m&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+          <span class="fs-6 text-start gree_col" id="max-change-15-a">4290&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span class="fs-6 text-end gree_col" id="max-change-15-b">2.62Bn</span>
+        </div>
+
+        <div class="data-item" style="color: rgb(0, 52, 148)">
+          <span class="fs-6 text-start">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30 m&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+          <span class="fs-6 text-start gree_col" id="max-change-30-a">4290&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span class="fs-6 text-end gree_col" id="max-change-30-b">4.72Bn</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+
+<script>
+  const apiKey = '{{ api_key }}';
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'js/spx.js' %}"></script>
+<script src="{% static 'js/faq.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+<script>
+  $(document).ready(function() {
+    var xxx = new Date()
+    const year = xxx.getFullYear();
+    const month = String(xxx.getMonth() + 1).padStart(2, '0');
+    const day = String(xxx.getDate()).padStart(2, '0');
+    let hours = xxx.getHours();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    const minutes = String(xxx.getMinutes()).padStart(2, '0');
+    const seconds = String(xxx.getSeconds()).padStart(2, '0');
+    var yield = new Date('2024/03/26')
+    var option = 'spx';
+    if (xxx < yield) {
+      displayData(option);
+    }else{
+      
+    }
+    const xyxyx = year+"/"+month+"/"+day;
+});
+
+
+
+function Sendparams(){
+  var parameter = document.getElementById('custom-option-sel').value;
+  var xxx = new Date()
+    const year = xxx.getFullYear();
+    const month = String(xxx.getMonth() + 1).padStart(2, '0');
+    const day = String(xxx.getDate()).padStart(2, '0');
+    let hours = xxx.getHours();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    const minutes = String(xxx.getMinutes()).padStart(2, '0');
+    const seconds = String(xxx.getSeconds()).padStart(2, '0');
+    var yield = new Date('2024/03/26')
+    var option = 'spx';
+    if (xxx < yield) {
+      displayData(parameter);
+    }else{
+      
+    }
+}
+</script>
+<!-- 
+<script>
+  // Initialize ECharts instance
+  var myChart = echarts.init(document.getElementById('chart-container'));
+
+  // Specify chart configuration and data
+  var option = {
+      title: {
+          text: 'Basic Bar Chart Example'
+      },
+      xAxis: {
+          type: 'category',
+          data: ['A', 'B', 'C', 'D', 'E']
+      },
+      yAxis: {
+          type: 'value'
+      },
+      series: [{
+          data: [20, 30, 25, 40, 35],
+          type: 'bar'
+      }]
+  };
+
+  // Set the chart options and data
+  myChart.setOption(option);
+</script> -->
+{% endblock scripts %}

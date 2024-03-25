@@ -1,0 +1,34 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% block head_title %}
+    {% trans "Signup" %}
+{% endblock %}
+{% block content %}
+    <style>
+    body{
+    background-image: linear-gradient( #63a0d4,#4f93ce,#337ab7,#285f8f);
+    }
+    </style>
+    <h1 class="text-center fst-italic my-3 ">{% trans "Sign Up" %}</h1><br>
+    <form class="signup d-flex flex-column"
+          id="signup_form"
+          method="post"
+          action="{% url 'account_signup' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if redirect_field_value %}
+            <input type="hidden"
+                   name="{{ redirect_field_name }}"
+                   value="{{ redirect_field_value }}" />
+        {% endif %}
+        <p>
+            {% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}
+        </p>
+        <button class="btn btn-secondary"
+                type="submit"
+                style="background-image: linear-gradient(to bottom, #63a0d4, #337ab7, #285f8f)">
+            {% trans "Sign Up" %} &raquo;
+        </button>
+    </form>
+    <a href="https://gannpath.com" style="display: block; margin: auto; padding: 20px; color: black; font-size: 20px; text-decoration: none;">back to home page</a><br>
+{% endblock %}
